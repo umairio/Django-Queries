@@ -36,15 +36,14 @@
 12. Select all patients with their diagnoses and prescriptions, if available.
 
         Patient.objects.prefetch_related('medical_record').values("name",'medical_record__diagnoses','medical_record__prescription')
-        MedicalRecord.objects.select_related('patient').values('patient__name',"diagnoses","prescription")
 13. Count the total number of patients admitted in a specific year.
         
         Patient.objects.filter(date_admitted__)
 15. Annotate the maximum age of patients.
-
+        Hospital.objects.annotate(max_age = Max('patient__age')).values('name','max_age')
 
 16. Annotate the minimum age of patients.
-
+        Hospital.objects.annotate(min_age = Min('patient__age')).values('name','min_age')
 
 17. Select all patients with their associated doctors and nurses.
         
@@ -75,5 +74,4 @@
         Patient.objects.select_related('doctor').values('name','doctor__specialization')
 26. Select all patients along with the earliest admission date.
         
-
-
+        Hospital.objects.annotate(earliest_admit = Min('patient__date_admitted')).values('name','earliest_admit')
