@@ -10,7 +10,7 @@ class PatientAdmin(admin.ModelAdmin):
         "get_nurse_name",
         "date_admitted",
     )
-    list_filter = ("date_admitted",)
+    list_filter = ("date_admitted", "doctor")
 
     def get_doctor_names(self, obj):
         return ", ".join([doctor.name for doctor in obj.doctor.all()])
